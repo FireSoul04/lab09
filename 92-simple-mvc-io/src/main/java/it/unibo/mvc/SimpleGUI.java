@@ -10,4 +10,18 @@ public final class SimpleGUI {
 
     private final JFrame frame = new JFrame();
 
+    /**
+     * 
+     */
+    public SimpleGUI() {
+        
+    }
+
+    /**
+     * 
+     */
+    public void init() {
+
+    }
+
 }
