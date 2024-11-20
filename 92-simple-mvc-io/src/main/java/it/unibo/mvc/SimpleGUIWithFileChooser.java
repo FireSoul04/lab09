@@ -26,14 +26,13 @@ public final class SimpleGUIWithFileChooser {
     private static final String TITLE = "My first java graphical interface";
     private static final int PROPORTION = 3;
 
-    private final Controller controller = new Controller();
     private final JFrame frame = new JFrame();
 
     /**
      * Create a simple GUI for saving a string into a file.
      * @param title of window
      */
-    public SimpleGUIWithFileChooser(final String title) {
+    public SimpleGUIWithFileChooser(final String title, final Controller controller) {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
@@ -43,7 +42,7 @@ public final class SimpleGUIWithFileChooser {
         frame.setLocationByPlatform(true);
         final JPanel panel = new JPanel(new BorderLayout());
         final JPanel fileBrowse = new JPanel(new BorderLayout());
-        final JTextField textField = new JTextField(this.controller.getCurrentFilePath());
+        final JTextField textField = new JTextField(controller.getCurrentFilePath());
         final JButton browse = new JButton("Browse...");
         final JButton save = new JButton("Save");
         final JTextArea textArea = new JTextArea();
@@ -91,7 +90,7 @@ public final class SimpleGUIWithFileChooser {
      * @param args
      */
     public static void main(final String[] args) {
-        new SimpleGUIWithFileChooser(TITLE);
+        new SimpleGUIWithFileChooser(TITLE, new Controller());
     }
 
 }

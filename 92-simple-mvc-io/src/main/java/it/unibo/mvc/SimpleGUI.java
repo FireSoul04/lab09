@@ -21,14 +21,13 @@ public final class SimpleGUI {
     private static final String TITLE = "My first java graphical interface";
     private static final int PROPORTION = 3;
 
-    private final Controller controller = new Controller();
     private final JFrame frame = new JFrame();
 
     /**
      * Create a simple GUI for saving a string into a file.
      * @param title of window
      */
-    public SimpleGUI(final String title) {
+    public SimpleGUI(final String title, final Controller controller) {
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
@@ -46,7 +45,7 @@ public final class SimpleGUI {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    SimpleGUI.this.controller.writeToCurrentFile(textArea.getText());
+                    controller.writeToCurrentFile(textArea.getText());
                 } catch (IOException ex) {
                     ex.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
@@ -60,6 +59,6 @@ public final class SimpleGUI {
      * @param args
      */
     public static void main(final String[] args) {
-        new SimpleGUI(TITLE);
+        new SimpleGUI(TITLE, new Controller());
     }
 }
