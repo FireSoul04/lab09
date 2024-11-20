@@ -31,15 +31,13 @@ public final class SimpleGUIWithFileChooser {
     /**
      * Create a simple GUI for saving a string into a file.
      * @param title of window
+     * @param controller of IO
      */
     public SimpleGUIWithFileChooser(final String title, final Controller controller) {
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final int sw = (int) screen.getWidth();
-        final int sh = (int) screen.getHeight();
-        frame.setSize(sw / PROPORTION, sh / PROPORTION);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(title);
-        frame.setLocationByPlatform(true);
+        this.resize();
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setLocationByPlatform(true);
+        this.frame.setTitle(title);
         final JPanel panel = new JPanel(new BorderLayout());
         final JPanel fileBrowse = new JPanel(new BorderLayout());
         final JTextField textField = new JTextField(controller.getCurrentFilePath());
@@ -60,7 +58,7 @@ public final class SimpleGUIWithFileChooser {
                     case JFileChooser.CANCEL_OPTION -> {
                     }
                     default -> {
-                        new Dialog(frame, JOptionPane.showInputDialog("An error has occured")); 
+                        new Dialog(SimpleGUIWithFileChooser.this.frame, JOptionPane.showInputDialog("An error has occured"));
                     }
                 }
             }
@@ -81,8 +79,15 @@ public final class SimpleGUIWithFileChooser {
         fileBrowse.add(textField, BorderLayout.CENTER);
         panel.add(fileBrowse, BorderLayout.NORTH);
         panel.add(save, BorderLayout.SOUTH);
-        frame.add(panel);
-        frame.setVisible(true);
+        this.frame.setContentPane(panel);
+        this.frame.setVisible(true);
+    }
+
+    private void resize() {
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int sw = (int) screen.getWidth();
+        final int sh = (int) screen.getHeight();
+        this.frame.setSize(sw / PROPORTION, sh / PROPORTION);
     }
 
     /**

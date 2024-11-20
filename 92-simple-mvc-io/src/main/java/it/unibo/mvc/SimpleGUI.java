@@ -26,21 +26,16 @@ public final class SimpleGUI {
     /**
      * Create a simple GUI for saving a string into a file.
      * @param title of window
+     * @param controller of IO
      */
     public SimpleGUI(final String title, final Controller controller) {
-        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
-        final int sw = (int) screen.getWidth();
-        final int sh = (int) screen.getHeight();
-        frame.setSize(sw / PROPORTION, sh / PROPORTION);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(title);
-        frame.setLocationByPlatform(true);
+        this.resize();
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setTitle(title);
+        this.frame.setLocationByPlatform(true);
         final JPanel panel = new JPanel(new BorderLayout());
-        frame.add(panel);
         final JButton button = new JButton("Save");
-        panel.add(button, BorderLayout.SOUTH);
         final JTextArea textArea = new JTextArea();
-        panel.add(textArea, BorderLayout.CENTER);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -51,7 +46,17 @@ public final class SimpleGUI {
                 }
             }
         });
-        frame.setVisible(true);
+        panel.add(button, BorderLayout.SOUTH);
+        panel.add(textArea, BorderLayout.CENTER);
+        this.frame.setContentPane(panel);
+        this.frame.setVisible(true);
+    }
+
+    private void resize() {
+        final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+        final int sw = (int) screen.getWidth();
+        final int sh = (int) screen.getHeight();
+        this.frame.setSize(sw / PROPORTION, sh / PROPORTION);
     }
 
     /**
