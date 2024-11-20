@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  * A very simple program using a graphical interface.
@@ -42,9 +43,11 @@ public final class SimpleGUIWithFileChooser {
         frame.setLocationByPlatform(true);
         final JPanel panel = new JPanel(new BorderLayout());
         final JPanel fileBrowse = new JPanel(new BorderLayout());
-        final JTextArea textField = new JTextArea(this.controller.getCurrentFilePath());
+        final JTextField textField = new JTextField(this.controller.getCurrentFilePath());
         final JButton browse = new JButton("Browse...");
         final JButton save = new JButton("Save");
+        final JTextArea textArea = new JTextArea();
+        panel.add(textArea, BorderLayout.CENTER);
         browse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -67,7 +70,7 @@ public final class SimpleGUIWithFileChooser {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    controller.writeToCurrentFile("Test");
+                    controller.writeToCurrentFile(textArea.getText());
                     textField.setText(controller.getCurrentFilePath());
                 } catch (IOException ex) {
                     ex.printStackTrace(); // NOPMD: allowed as this is just an exercise

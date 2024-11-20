@@ -10,6 +10,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * A very simple program using a graphical interface.
@@ -28,22 +29,24 @@ public final class SimpleGUI {
      * @param title of window
      */
     public SimpleGUI(final String title) {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle(title);
-        frame.setLocationByPlatform(true);
         final Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
         final int sw = (int) screen.getWidth();
         final int sh = (int) screen.getHeight();
         frame.setSize(sw / PROPORTION, sh / PROPORTION);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle(title);
+        frame.setLocationByPlatform(true);
         final JPanel panel = new JPanel(new BorderLayout());
         frame.add(panel);
         final JButton button = new JButton("Save");
         panel.add(button, BorderLayout.SOUTH);
+        final JTextArea textArea = new JTextArea();
+        panel.add(textArea, BorderLayout.CENTER);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    SimpleGUI.this.controller.writeToCurrentFile("Test");
+                    SimpleGUI.this.controller.writeToCurrentFile(textArea.getText());
                 } catch (IOException ex) {
                     ex.printStackTrace(); // NOPMD: allowed as this is just an exercise
                 }
