@@ -17,14 +17,14 @@ public class Controller {
     private File file;
 
     /**
-     * Create a controller with default file path
+     * Create a controller with default file path.
      */
     public Controller() {
         this.file = new File(DEFAULT_PATH);
     }
 
     /**
-     * Set the new file to work on
+     * Set the new file to work on.
      * 
      * @param file file to work on
      */
@@ -33,7 +33,7 @@ public class Controller {
     }
 
     /**
-     * Gives the current file in use
+     * Gives the current file in use.
      * @return file in use
      */
     public File getCurrentFile() {
@@ -41,7 +41,7 @@ public class Controller {
     }
 
     /**
-     * Gives the absolute path of current file in use
+     * Gives the absolute path of current file in use.
      * @return path of file in use
      */
     public String getCurrentFilePath() {
@@ -49,12 +49,12 @@ public class Controller {
     }
 
     /**
-     * Write to the file attached to this controller
+     * Write to the file attached to this controller.
      * @param line to write inside the file
      * @throws IOException if file is not readable
      */
     public void writeToCurrentFile(final String line) throws IOException {
-        try (PrintStream ps = new PrintStream(file)) {
+        try (PrintStream ps = new PrintStream(file, StandardCharsets.UTF_8)) {
             ps.write(line.getBytes(StandardCharsets.UTF_8));
         } catch (final IOException e) {
             e.printStackTrace(); // NOPMD: allowed as this is just an exercise
